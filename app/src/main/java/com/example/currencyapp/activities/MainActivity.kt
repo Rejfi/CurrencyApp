@@ -13,11 +13,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fm = supportFragmentManager
-        //currencyFragment = CurrencyFragment()
-        fm.beginTransaction().apply {
-            add(R.id.fragment_container, CurrencyFragment())
-            commit()
-        }
     }
 }

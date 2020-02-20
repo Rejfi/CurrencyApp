@@ -4,15 +4,16 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.currencyapp.data.CurrencyRepository
 import com.example.currencyapp.data.models.NBPTable
 import kotlinx.coroutines.runBlocking
 
-class CurrencyViewModel(application: Application): AndroidViewModel(application) {
+class CurrencyViewModel : ViewModel() {
 
     private val repository = CurrencyRepository()
     private var currenciesToday: Array<NBPTable>? = null
-    private var lastDate = 0L
+    private var lastSelectedDate: Long = 0L
 
     fun getCurrencies(time: Long): Array<NBPTable>?{
         val currenciesRatesToday = repository.getCurrencies(time)
@@ -22,12 +23,11 @@ class CurrencyViewModel(application: Application): AndroidViewModel(application)
         }
         return currenciesToday
     }
-
-    fun getLastDate(): Long {
-        return lastDate
+    fun getLastSelectedDate(): Long {
+        return lastSelectedDate
     }
 
-    fun setLastDate(time: Long){
-        lastDate = time
+    fun setLastSelectedDate(time: Long){
+        lastSelectedDate = time
     }
 }

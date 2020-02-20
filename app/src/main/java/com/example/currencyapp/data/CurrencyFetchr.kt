@@ -21,7 +21,7 @@ class CurrencyFetchr {
             val out = ByteArrayOutputStream()
             val input = connection.inputStream
 
-            if (connection.responseCode != HttpsURLConnection.HTTP_OK) {
+            if (connection.responseCode != HttpURLConnection.HTTP_OK) {
                 throw IOException(connection.responseMessage)
             }
 
@@ -58,7 +58,7 @@ class CurrencyFetchr {
         val date = convertToCorrectDate(time)
 
         jsonString = try {
-            val url: String = Uri.parse("http://api.nbp.pl/api/exchangerates/tables/A/$date/")
+            val url: String = Uri.parse("https://api.nbp.pl/api/exchangerates/tables/A/$date/")
                 .buildUpon()
                 .appendQueryParameter("?format", "json")
                 .build().toString()
@@ -86,6 +86,8 @@ class CurrencyFetchr {
         */
         }
 
+
+        Log.e("Tag", jsonString)
         return jsonString
     }
 }
