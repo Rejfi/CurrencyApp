@@ -1,4 +1,4 @@
-package com.example.currencyapp.fragments
+package com.example.currencyapp.fragments.tables
 
 
 import android.os.Bundle

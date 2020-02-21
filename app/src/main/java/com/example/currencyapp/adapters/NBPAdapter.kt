@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyapp.R
-import com.example.currencyapp.data.models.NBPTable
+import com.example.currencyapp.data.models.tableA.TableA
 
-class NBPAdapter(private val currencies: Array<NBPTable>): RecyclerView.Adapter<CurrencyViewHolder>() {
+class NBPAdapter(private val currencies: Array<TableA>): RecyclerView.Adapter<CurrencyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val row = layoutInflater.inflate(R.layout.currency_row, parent, false)

@@ -1,21 +1,16 @@
 package com.example.currencyapp.viewmodels
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.currencyapp.data.CurrencyRepository
-import com.example.currencyapp.data.models.NBPTable
-import kotlinx.coroutines.runBlocking
+import com.example.currencyapp.data.models.tableA.TableA
 
 class CurrencyViewModel : ViewModel() {
 
     private val repository = CurrencyRepository()
-    private var currenciesToday: Array<NBPTable>? = null
+    private var currenciesToday: Array<TableA>? = null
     private var lastSelectedDate: Long = 0L
 
-    fun getCurrencies(time: Long): Array<NBPTable>?{
+    fun getCurrencies(time: Long): Array<TableA>?{
         val currenciesRatesToday = repository.getCurrencies(time)
         if(currenciesRatesToday != null){
             currenciesToday = currenciesRatesToday

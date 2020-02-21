@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.currencyapp.R
 import com.example.currencyapp.adapters.CurrencyViewPagerAdapter
-import com.example.currencyapp.fragments.FavouriteCurrencyFrag
 import com.example.currencyapp.viewmodels.CurrencyViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var navigationView: NavigationView
+    private lateinit var floatingActionButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.viewPager)
         tabLayout = findViewById(R.id.tabLayout)
         navigationView = findViewById(R.id.navigationView)
+        floatingActionButton = findViewById(R.id.floatingActionButton)
 
         val viewPagerAdapter = CurrencyViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter

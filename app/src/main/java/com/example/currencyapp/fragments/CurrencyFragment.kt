@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyapp.R
 import com.example.currencyapp.adapters.NBPAdapter
-import com.example.currencyapp.data.models.NBPTable
+import com.example.currencyapp.data.models.tableA.TableA
 import com.example.currencyapp.viewmodels.CurrencyViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -32,7 +32,7 @@ class CurrencyFragment: Fragment(), DatePickerDialog.OnDateSetListener{
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NBPAdapter
     private lateinit var currencyViewModel: CurrencyViewModel
-    private var currenciesRates: Array<NBPTable>? = null
+    private var currenciesRates: Array<TableA>? = null
     private lateinit var floatingActionButton: FloatingActionButton
     private var lastDate: Long = 0L
 

@@ -14,9 +14,9 @@ class CurrencyViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStat
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            1 -> TableAFragment()
-            2 -> TableBFragment()
-            3 -> TableCFragment()
+            0 -> TableAFragment()
+            1 -> TableBFragment()
+            2 -> TableCFragment()
             else -> TableAFragment()
         }
     }

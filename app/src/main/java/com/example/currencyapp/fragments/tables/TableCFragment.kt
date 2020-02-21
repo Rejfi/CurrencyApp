@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.currencyapp.R
 
@@ -14,6 +15,7 @@ import com.example.currencyapp.R
  */
 class TableCFragment : Fragment() {
 
+    private lateinit var recyclerViewC: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,5 +24,8 @@ class TableCFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_table_c, container, false)
     }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerViewC = view.findViewById(R.id.recyclerView_C)
+    }
 }
