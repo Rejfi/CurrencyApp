@@ -5,7 +5,6 @@ import android.util.Log
 import org.json.JSONException
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
@@ -15,13 +14,13 @@ class CurrencyFetchr {
 
     private fun getUrlBytes(urlSpec: String): ByteArray {
         val url = URL(urlSpec)
-        val connection = url.openConnection() as HttpURLConnection
+        val connection = url.openConnection() as HttpsURLConnection
 
         try {
             val out = ByteArrayOutputStream()
             val input = connection.inputStream
 
-            if (connection.responseCode != HttpURLConnection.HTTP_OK) {
+            if (connection.responseCode != HttpsURLConnection.HTTP_OK) {
                 throw IOException(connection.responseMessage)
             }
 

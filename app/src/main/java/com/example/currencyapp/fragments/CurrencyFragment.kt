@@ -80,8 +80,7 @@ class CurrencyFragment: Fragment(), DatePickerDialog.OnDateSetListener{
                     Snackbar.make(
                         requireView(),
                         "Brak danych",
-                        Snackbar.LENGTH_LONG
-                    )
+                        Snackbar.LENGTH_LONG)
                         .show()
                     setQuotationsDate(lastDate)
                 }
@@ -100,8 +99,7 @@ class CurrencyFragment: Fragment(), DatePickerDialog.OnDateSetListener{
                     Snackbar.make(
                         requireView(),
                         "Brak danych",
-                        Snackbar.LENGTH_LONG
-                    )
+                        Snackbar.LENGTH_LONG)
                         .show()
                     setQuotationsDate(Date().time)
                 }
