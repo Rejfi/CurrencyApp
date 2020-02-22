@@ -16,7 +16,7 @@ class CalendarFragment: DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return DatePickerDialog(requireContext(),
-            activity!!.supportFragmentManager.fragments[0] as DatePickerDialog.OnDateSetListener,
+            activity as DatePickerDialog.OnDateSetListener,
             year,
             month,
             day)

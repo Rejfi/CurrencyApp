@@ -40,7 +40,7 @@ class CurrencyFetchr {
 
         } catch (e: IOException) {
             Log.e("ERROR_HTTP_CONNECTION", e.message!!)
-            return ByteArray(0)
+            return emptyArray<Byte>().toByteArray()
         } finally {
             connection.disconnect()
         }
@@ -67,24 +67,7 @@ class CurrencyFetchr {
         } catch (je: JSONException) {
             Log.e("TAG", je.message)
            "JSOS ERROR"
-            /*
-            "[\n" +
-                    "  {\n" +
-                    "    \"table\": \"A\",\n" +
-                    "    \"no\": \"030/A/NBP/2020\",\n" +
-                    "    \"effectiveDate\": \"2020-02-13\",\n" +
-                    "    \"rates\": [\n" +
-                    "      {\n" +
-                    "        \"currency\": \"Brak danych\",\n" +
-                    "        \"code\": \"Brak danych\",\n" +
-                    "        \"mid\": 0.0\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  }\n" +
-                    "]"
-        */
         }
-
 
         Log.e("Tag", jsonString)
         return jsonString

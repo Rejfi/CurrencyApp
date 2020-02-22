@@ -26,6 +26,8 @@ class NBPAdapter(private val currencies: Array<TableA>): RecyclerView.Adapter<Cu
         holder.currencyRates.text = currencies[0].rates[position].mid.toString()
 
     }
+
+
 }
 
 class CurrencyViewHolder(view: View): RecyclerView.ViewHolder(view){

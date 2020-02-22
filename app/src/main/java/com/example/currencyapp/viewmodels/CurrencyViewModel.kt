@@ -1,28 +1,44 @@
 package com.example.currencyapp.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.currencyapp.data.CurrencyRepository
 import com.example.currencyapp.data.models.tableA.TableA
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 class CurrencyViewModel : ViewModel() {
 
     private val repository = CurrencyRepository()
-    private var currenciesToday: Array<TableA>? = null
-    private var lastSelectedDate: Long = 0L
-
-    fun getCurrencies(time: Long): Array<TableA>?{
-        val currenciesRatesToday = repository.getCurrencies(time)
-        if(currenciesRatesToday != null){
-            currenciesToday = currenciesRatesToday
-            return currenciesToday
-        }
-        return currenciesToday
-    }
-    fun getLastSelectedDate(): Long {
-        return lastSelectedDate
+    val tableA = MutableLiveData<Array<TableA>>().apply {
+        val c = Calendar.getInstance()
+        loadTableA(c.timeInMillis)
     }
 
-    fun setLastSelectedDate(time: Long){
-        lastSelectedDate = time
+    /**
+     * Load async data from repository and post value if isn't null or empty
+     */
+    private fun loadTableA(time: Long) {
+            CoroutineScope(viewModelScope.coroutineContext).launch {
+               val loadedData =
+                   withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                       repository.getTableA(time)
+                   }
+                    if(!loadedData.isNullOrEmpty())
+                        tableA.postValue(loadedData)
+            }
     }
+
+   fun setTableA(time: Long){
+       loadTableA(time)
+   }
+
+    fun setData(data: Array<TableA>){
+        tableA.value = data
+    }
+
 }
