@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.currencyapp.R
 import com.example.currencyapp.adapters.AdapterTableA
 import com.example.currencyapp.viewmodels.CurrencyViewModel
+import kotlinx.android.synthetic.main.fragment_table_a.*
 
 class TableAFragment : Fragment() {
 
@@ -37,7 +38,11 @@ class TableAFragment : Fragment() {
         recyclerViewA = view.findViewById(R.id.recyclerView_A)
         recyclerViewA.layoutManager = LinearLayoutManager(requireContext())
         currencyViewModel.tableA.observe(requireActivity(), androidx.lifecycle.Observer{
-            recyclerViewA.adapter = AdapterTableA(it)
+            if (!it.isNullOrEmpty()) {
+                quotationsDateTableA.text = it[0].effectiveDate
+                recyclerViewA.adapter = AdapterTableA(it)
+            }
+
         })
 
     }

@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.currencyapp.R
+import com.example.currencyapp.activities.MainActivity.Companion.convertToDate
 import com.example.currencyapp.adapters.AdapterTableA
 import com.example.currencyapp.adapters.AdapterTableB
 import com.example.currencyapp.adapters.AdapterTableC
 import com.example.currencyapp.viewmodels.CurrencyViewModel
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_table_b.*
 
 /**
  * A simple [Fragment] subclass.
@@ -44,7 +47,19 @@ class TableBFragment : Fragment() {
 
         currencyViewModel.tableB.observe(requireActivity(), androidx.lifecycle.Observer{
             //TableA is the same as TableB
-            recyclerViewB.adapter = AdapterTableB(it)
+            if(it.isNullOrEmpty()) showSnackbar()
+
+            else {
+                quotationsDateTableB.text = it[0].effectiveDate
+                recyclerViewB.adapter = AdapterTableB(it)
+            }
         })
+    }
+
+    private fun showSnackbar(){
+        Snackbar.make(view!!,
+            "Brak danych",
+            Snackbar.LENGTH_LONG)
+            .show()
     }
 }

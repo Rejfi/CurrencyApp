@@ -88,23 +88,26 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         return !todayDate.before(nextDate)
     }
 
-    private fun convertToDate(time: Long): String {
-        val c = Calendar.getInstance()
-        c.timeInMillis = time
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)+1
-        val day = c.get(Calendar.DAY_OF_MONTH)
+    companion object{
+         fun convertToDate(time: Long): String {
+            val c = Calendar.getInstance()
+            c.timeInMillis = time
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)+1
+            val day = c.get(Calendar.DAY_OF_MONTH)
 
-        var monthString = month.toString()
-        var dayString = day.toString()
+            var monthString = month.toString()
+            var dayString = day.toString()
 
-        if(month < 10){
-            monthString = "0$month"
+            if(month < 10){
+                monthString = "0$month"
+            }
+            if(day < 10){
+                dayString = "0$day"
+            }
+
+            return "$dayString-$monthString-$year"
         }
-        if(day < 10){
-            dayString = "0$day"
-        }
-
-        return "$dayString-$monthString-$year"
     }
+
 }

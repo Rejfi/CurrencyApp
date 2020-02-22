@@ -22,9 +22,12 @@ class AdapterTableB(private val currencies: Array<TableB>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holderTableB: CurrencyTableBViewHolder, position: Int) {
         holderTableB.currencyName.text = currencies[0].rates[position].currency
+
         val concatenateString = "${currencies[0].rates[position].code}/PLN"
         holderTableB.currencyByPLN.text = concatenateString
-        holderTableB.currencyRates.text = currencies[0].rates[position].mid.toString()
+
+        val mid = "MID: ${currencies[0].rates[position].mid.toString()}"
+        holderTableB.currencyRates.text = mid
     }
 }
 

@@ -14,6 +14,7 @@ import com.example.currencyapp.R
 import com.example.currencyapp.adapters.AdapterTableA
 import com.example.currencyapp.adapters.AdapterTableC
 import com.example.currencyapp.viewmodels.CurrencyViewModel
+import kotlinx.android.synthetic.main.fragment_table_c.*
 
 /**
  * A simple [Fragment] subclass.
@@ -42,7 +43,11 @@ class TableCFragment : Fragment() {
         recyclerViewC.layoutManager = LinearLayoutManager(requireContext())
 
         currencyViewModel.tableC.observe(requireActivity(), androidx.lifecycle.Observer{
-            recyclerViewC.adapter = AdapterTableC(it)
+            if (!it.isNullOrEmpty()){
+                quotationsDateTableC.text = it[0].effectiveDate
+                recyclerViewC.adapter = AdapterTableC(it)
+            }
+
         })
     }
 }

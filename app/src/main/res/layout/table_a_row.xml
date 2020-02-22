@@ -50,7 +50,7 @@
                     android:id="@+id/currencyByPLN"
                     android:textSize="15sp"
                     android:text="WALUTA/PLN"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -67,7 +67,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="KURS"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView

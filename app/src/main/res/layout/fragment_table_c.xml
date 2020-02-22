@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.tables.TableCFragment">
+
+    <TextView
+        android:textStyle="bold|italic"
+        android:id="@+id/quotationsDateTableC"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:text="Data notowania"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_C"
@@ -11,4 +25,4 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/table_a_row"
         />
-</FrameLayout>
+</LinearLayout>

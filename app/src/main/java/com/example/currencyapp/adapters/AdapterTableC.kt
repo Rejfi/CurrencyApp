@@ -23,8 +23,10 @@ class AdapterTableC(private val currencies: Array<TableC>): RecyclerView.Adapter
         holder.currencyName.text = currencies[0].rates[position].currency
         val concatenateString = "${currencies[0].rates[position].code}/PLN"
         holder.currencyByPLN.text = concatenateString
-        holder.currencyAsk.text = currencies[0].rates[position].ask.toString()
-        holder.currencyBid.text = currencies[0].rates[position].bid.toString()
+        val ask = "ASK: ${currencies[0].rates[position].ask}"
+        holder.currencyAsk.text = ask
+        val bid = "BID: ${currencies[0].rates[position].bid}"
+        holder.currencyBid.text = bid
     }
 }
 
