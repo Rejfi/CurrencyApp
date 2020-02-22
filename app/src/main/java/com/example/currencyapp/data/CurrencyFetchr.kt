@@ -50,14 +50,14 @@ class CurrencyFetchr {
         return String(getUrlBytes(urlSpec))
     }
 
-    fun getJSONString(time: Long): String {
+    fun getJSONString(time: Long, table: Char): String {
 
         val jsonString: String
 
         val date = convertToCorrectDate(time)
 
         jsonString = try {
-            val url: String = Uri.parse("https://api.nbp.pl/api/exchangerates/tables/A/$date/")
+            val url: String = Uri.parse("https://api.nbp.pl/api/exchangerates/tables/$table/$date/")
                 .buildUpon()
                 .appendQueryParameter("?format", "json")
                 .build().toString()

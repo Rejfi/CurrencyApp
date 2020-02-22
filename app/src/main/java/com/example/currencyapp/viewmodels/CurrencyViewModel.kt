@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.currencyapp.data.CurrencyRepository
 import com.example.currencyapp.data.models.tableA.TableA
+import com.example.currencyapp.data.models.tableC.TableC
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,9 +15,13 @@ import java.util.*
 class CurrencyViewModel : ViewModel() {
 
     private val repository = CurrencyRepository()
+    private val c = Calendar.getInstance()
+
     val tableA = MutableLiveData<Array<TableA>>().apply {
-        val c = Calendar.getInstance()
         loadTableA(c.timeInMillis)
+    }
+    val tableC = MutableLiveData<Array<TableC>>().apply {
+        loadTableC(c.timeInMillis)
     }
 
     /**
@@ -33,12 +38,22 @@ class CurrencyViewModel : ViewModel() {
             }
     }
 
-   fun setTableA(time: Long){
-       loadTableA(time)
-   }
-
-    fun setData(data: Array<TableA>){
-        tableA.value = data
+    private fun loadTableC(time: Long) {
+        CoroutineScope(viewModelScope.coroutineContext).launch {
+            val loadedData =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                    repository.getTableC(time)
+                }
+            if(!loadedData.isNullOrEmpty())
+                tableC.postValue(loadedData)
+        }
     }
 
+    fun setTableA(time: Long){
+       loadTableA(time)
+    }
+
+    fun setTableC(time: Long){
+        loadTableC(time)
+    }
 }

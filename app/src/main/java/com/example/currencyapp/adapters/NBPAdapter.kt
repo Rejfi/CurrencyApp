@@ -24,10 +24,7 @@ class NBPAdapter(private val currencies: Array<TableA>): RecyclerView.Adapter<Cu
         val concatenateString = "${currencies[0].rates[position].code}/PLN"
         holder.currencyByPLN.text = concatenateString
         holder.currencyRates.text = currencies[0].rates[position].mid.toString()
-
     }
-
-
 }
 
 class CurrencyViewHolder(view: View): RecyclerView.ViewHolder(view){

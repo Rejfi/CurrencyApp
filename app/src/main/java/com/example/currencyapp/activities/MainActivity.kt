@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         if(checkIsDateAfterToday(today, c)){
             currencyViewModel.setTableA(dayInMillis)
+            currencyViewModel.setTableC(dayInMillis)
         }else{
             showSnackbar(dayInMillis)
         }
