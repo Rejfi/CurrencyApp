@@ -25,7 +25,7 @@ class CurrencyFetchr {
             }
 
             var bytesRead: Int
-            val buffer = ByteArray(1025)
+            var buffer = ByteArray(32768)
 
             do {
                 bytesRead = input.read(buffer)

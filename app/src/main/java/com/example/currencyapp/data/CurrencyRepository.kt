@@ -1,12 +1,9 @@
 package com.example.currencyapp.data
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.currencyapp.data.models.tableA.TableA
+import com.example.currencyapp.data.models.tableB.TableB
 import com.example.currencyapp.data.models.tableC.TableC
 import com.google.gson.Gson
-import org.json.JSONException
 
 class CurrencyRepository {
 
@@ -21,6 +18,17 @@ class CurrencyRepository {
         return tableA
     }
 
+    fun getTableB(time: Long): Array<TableB> {
+        val currencyFetcher = CurrencyFetchr()
+        val gson = Gson()
+        var tableB: Array<TableB> = emptyArray()
+        val data: Array<TableB>? =gson.fromJson(currencyFetcher.getJSONString(time, 'B'), Array<TableB>::class.java)
+        if(!data.isNullOrEmpty())
+            tableB= data
+
+        return tableB
+    }
+
     fun getTableC(time: Long): Array<TableC> {
         val currencyFetcher = CurrencyFetchr()
         val gson = Gson()
@@ -31,5 +39,7 @@ class CurrencyRepository {
 
         return tableC
     }
+
+
 
 }

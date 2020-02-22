@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.currencyapp.R
-import com.example.currencyapp.adapters.NBPAdapter
+import com.example.currencyapp.adapters.AdapterTableA
+import com.example.currencyapp.adapters.AdapterTableC
 import com.example.currencyapp.viewmodels.CurrencyViewModel
 
 /**
@@ -41,8 +42,7 @@ class TableCFragment : Fragment() {
         recyclerViewC.layoutManager = LinearLayoutManager(requireContext())
 
         currencyViewModel.tableC.observe(requireActivity(), androidx.lifecycle.Observer{
-            TODO("Napisać nowy adapter dla tabeli C, stworzyć dla niej wygląd wiersza i zaimplementować cały mechanizm wyświetlania")
-            recyclerViewC.adapter = NBPAdapter(it)
+            recyclerViewC.adapter = AdapterTableC(it)
         })
     }
 }
