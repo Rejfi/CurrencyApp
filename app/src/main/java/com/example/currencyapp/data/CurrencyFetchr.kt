@@ -25,7 +25,7 @@ class CurrencyFetchr {
             }
 
             var bytesRead: Int
-            var buffer = ByteArray(32768)
+            var buffer = ByteArray(8192)
 
             do {
                 bytesRead = input.read(buffer)
