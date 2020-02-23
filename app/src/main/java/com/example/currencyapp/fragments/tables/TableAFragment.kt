@@ -2,6 +2,7 @@ package com.example.currencyapp.fragments.tables
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.currencyapp.R
 import com.example.currencyapp.adapters.AdapterTableA
+import com.example.currencyapp.adapters.OnItemClickListener
+import com.example.currencyapp.data.models.tableA.RateA
 import com.example.currencyapp.viewmodels.CurrencyViewModel
 import kotlinx.android.synthetic.main.fragment_table_a.*
 
-class TableAFragment : Fragment() {
+class TableAFragment : Fragment(), OnItemClickListener{
 
     private lateinit var currencyViewModel: CurrencyViewModel
     private lateinit var recyclerViewA: RecyclerView
@@ -40,11 +43,15 @@ class TableAFragment : Fragment() {
         currencyViewModel.tableA.observe(requireActivity(), androidx.lifecycle.Observer{
             if (!it.isNullOrEmpty()) {
                 quotationsDateTableA.text = it[0].effectiveDate
-                recyclerViewA.adapter = AdapterTableA(it)
+                recyclerViewA.adapter = AdapterTableA(it, this)
             }
 
         })
 
+    }
+
+    override fun onItemClicked(rate: RateA) {
+        Log.e("Tag", "Wybrana waluta ${rate.code}")
     }
 
 }

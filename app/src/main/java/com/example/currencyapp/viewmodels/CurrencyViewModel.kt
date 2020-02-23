@@ -8,16 +8,16 @@ import com.example.currencyapp.data.CurrencyRepository
 import com.example.currencyapp.data.models.tableA.TableA
 import com.example.currencyapp.data.models.tableB.TableB
 import com.example.currencyapp.data.models.tableC.TableC
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.util.*
 
 class CurrencyViewModel : ViewModel() {
 
     private val repository = CurrencyRepository()
     private val c = Calendar.getInstance()
+    private lateinit var jobA: Job
+    private lateinit var jobB: Job
+    private lateinit var jobC: Job
 
     val tableA = MutableLiveData<Array<TableA>>().apply {
         loadTableA(c.timeInMillis)
@@ -34,7 +34,7 @@ class CurrencyViewModel : ViewModel() {
      * Load async data from repository and post value if isn't null or empty
      */
     private fun loadTableA(time: Long) {
-        CoroutineScope(viewModelScope.coroutineContext).launch {
+       jobA = CoroutineScope(viewModelScope.coroutineContext).launch {
             val loadedData =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                     repository.getTableA(time)
@@ -46,7 +46,7 @@ class CurrencyViewModel : ViewModel() {
     }
 
     private fun loadTableB(time: Long) {
-        CoroutineScope(viewModelScope.coroutineContext).launch {
+       jobB = CoroutineScope(viewModelScope.coroutineContext).launch {
             val loadedData =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                     repository.getTableB(time)
@@ -58,7 +58,7 @@ class CurrencyViewModel : ViewModel() {
     }
 
     private fun loadTableC(time: Long) {
-        CoroutineScope(viewModelScope.coroutineContext).launch {
+         jobC = CoroutineScope(viewModelScope.coroutineContext).launch {
             val loadedData =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                     repository.getTableC(time)
@@ -76,5 +76,13 @@ class CurrencyViewModel : ViewModel() {
     }
     fun setTableC(time: Long){
         loadTableC(time)
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        jobA.cancel()
+        jobB.cancel()
+        jobC.cancel()
     }
 }

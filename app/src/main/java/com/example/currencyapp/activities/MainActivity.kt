@@ -2,6 +2,7 @@ package com.example.currencyapp.activities
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.currencyapp.R
 import com.example.currencyapp.adapters.CurrencyViewPagerAdapter
+import com.example.currencyapp.adapters.OnItemClickListener
+import com.example.currencyapp.data.models.tableA.RateA
 import com.example.currencyapp.fragments.CalendarFragment
 import com.example.currencyapp.viewmodels.CurrencyViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,7 +23,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.view.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
 
     private lateinit var currencyViewModel: CurrencyViewModel
     private lateinit var viewPager: ViewPager2
