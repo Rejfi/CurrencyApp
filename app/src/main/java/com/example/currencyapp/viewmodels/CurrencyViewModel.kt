@@ -13,11 +13,13 @@ import java.util.*
 
 class CurrencyViewModel : ViewModel() {
 
+
     private val repository = CurrencyRepository()
     private val c = Calendar.getInstance()
     private lateinit var jobA: Job
     private lateinit var jobB: Job
     private lateinit var jobC: Job
+    private lateinit var jobFav: Job
 
     val tableA = MutableLiveData<Array<TableA>>().apply {
         loadTableA(c.timeInMillis)
@@ -27,6 +29,9 @@ class CurrencyViewModel : ViewModel() {
     }
     val tableC = MutableLiveData<Array<TableC>>().apply {
         loadTableC(c.timeInMillis)
+    }
+    val tableFav = MutableLiveData<Array<TableA>>().apply {
+        loadTableFav()
     }
 
 
@@ -68,6 +73,18 @@ class CurrencyViewModel : ViewModel() {
         }
     }
 
+    private fun loadTableFav() {
+        jobFav = CoroutineScope(viewModelScope.coroutineContext).launch {
+            val loadedData =
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                    repository.getTableA(c.timeInMillis)
+                }
+            Log.e("Tag", "Załadowanie danych i wysłanie zapytania na serwer")
+            if(!loadedData.isNullOrEmpty())
+                tableFav.postValue(loadedData)
+        }
+    }
+
     fun setTableA(time: Long){
        loadTableA(time)
     }
@@ -77,6 +94,9 @@ class CurrencyViewModel : ViewModel() {
     fun setTableC(time: Long){
         loadTableC(time)
     }
+    fun setTableFav(){
+        loadTableFav()
+    }
 
 
     override fun onCleared() {
@@ -84,5 +104,6 @@ class CurrencyViewModel : ViewModel() {
         jobA.cancel()
         jobB.cancel()
         jobC.cancel()
+        jobFav.cancel()
     }
 }

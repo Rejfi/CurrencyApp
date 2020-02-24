@@ -25,15 +25,7 @@ class AdapterTableA(private val currencies: Array<TableA>,
     }
 
     override fun onBindViewHolder(holderTableA: CurrencyTableAViewHolder, position: Int) {
-      /*
-        holderTableA.currencyName.text = currencies[0].rates[position].currency
 
-        val concatenateString = "${currencies[0].rates[position].code}/PLN"
-        holderTableA.currencyByPLN.text = concatenateString
-
-        val mid = "MID: ${currencies[0].rates[position].mid.toString()}"
-        holderTableA.currencyRates.text = mid
-    */
         val rateA = currencies[0].rates[position]
         holderTableA.bind(rateA, itemClickListener)
     }
