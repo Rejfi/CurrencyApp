@@ -47,9 +47,7 @@ class TableBFragment : Fragment() {
 
         currencyViewModel.tableB.observe(requireActivity(), androidx.lifecycle.Observer{
             //TableA is the same as TableB
-            if(it.isNullOrEmpty()) showSnackbar()
-
-            else {
+            if(!it.isNullOrEmpty()) {
                 quotationsDateTableB.text = it[0].effectiveDate
                 recyclerViewB.adapter = AdapterTableB(it)
             }
@@ -57,7 +55,7 @@ class TableBFragment : Fragment() {
     }
 
     private fun showSnackbar(){
-        Snackbar.make(view!!,
+        Snackbar.make(requireView(),
             "Brak danych",
             Snackbar.LENGTH_LONG)
             .show()

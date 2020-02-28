@@ -8,6 +8,7 @@ import com.example.currencyapp.fragments.tables.TableBFragment
 import com.example.currencyapp.fragments.tables.TableCFragment
 
 class CurrencyViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity){
+
     override fun getItemCount(): Int {
         return 3
     }

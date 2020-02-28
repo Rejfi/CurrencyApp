@@ -16,29 +16,22 @@ import com.example.currencyapp.adapters.AdapterTableC
 import com.example.currencyapp.viewmodels.CurrencyViewModel
 import kotlinx.android.synthetic.main.fragment_table_c.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class TableCFragment : Fragment() {
 
     private lateinit var currencyViewModel: CurrencyViewModel
     private lateinit var recyclerViewC: RecyclerView
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_table_c, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         currencyViewModel = ViewModelProvider(requireActivity()).get(CurrencyViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         recyclerViewC = view.findViewById(R.id.recyclerView_C)
         recyclerViewC.layoutManager = LinearLayoutManager(requireContext())
 
@@ -47,7 +40,6 @@ class TableCFragment : Fragment() {
                 quotationsDateTableC.text = it[0].effectiveDate
                 recyclerViewC.adapter = AdapterTableC(it)
             }
-
         })
     }
 }

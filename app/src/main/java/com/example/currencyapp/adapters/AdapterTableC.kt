@@ -21,10 +21,13 @@ class AdapterTableC(private val currencies: Array<TableC>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: CurrencyTableCViewHolder, position: Int) {
         holder.currencyName.text = currencies[0].rates[position].currency
+
         val concatenateString = "${currencies[0].rates[position].code}/PLN"
         holder.currencyByPLN.text = concatenateString
+
         val ask = "ASK: ${currencies[0].rates[position].ask}"
         holder.currencyAsk.text = ask
+
         val bid = "BID: ${currencies[0].rates[position].bid}"
         holder.currencyBid.text = bid
     }

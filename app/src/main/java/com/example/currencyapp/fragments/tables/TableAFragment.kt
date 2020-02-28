@@ -27,7 +27,6 @@ class TableAFragment : Fragment(), OnItemClickListener{
     private lateinit var shpref: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         return inflater.inflate(R.layout.fragment_table_a, container, false)
     }
 
@@ -43,6 +42,8 @@ class TableAFragment : Fragment(), OnItemClickListener{
 
         recyclerViewA = view.findViewById(R.id.recyclerView_A)
         recyclerViewA.layoutManager = LinearLayoutManager(requireContext())
+
+        //Observe LiveData and update adapter if them change and not empty/nul;
         currencyViewModel.tableA.observe(requireActivity(), androidx.lifecycle.Observer{
             if (!it.isNullOrEmpty()) {
                 quotationsDateTableA.text = it[0].effectiveDate
@@ -59,7 +60,6 @@ class TableAFragment : Fragment(), OnItemClickListener{
             commit()
         }
         currencyViewModel.setTableFav()
-        Log.e("Tag", "Wybrana waluta ${rate.code}")
     }
 
 }

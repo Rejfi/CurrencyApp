@@ -6,6 +6,11 @@ import com.example.currencyapp.data.models.tableC.TableC
 import com.google.gson.Gson
 
 class CurrencyRepository {
+    /**
+     * Function convert JSON to Array<TableA>
+     * @param time date in millisecond
+     * @see TableA
+     */
 
     fun getTableA(time: Long): Array<TableA> {
         val currencyFetcher = CurrencyFetchr()
@@ -18,6 +23,9 @@ class CurrencyRepository {
         return tableA
     }
 
+    /**
+     * @see TableB
+     */
     fun getTableB(time: Long): Array<TableB> {
         val currencyFetcher = CurrencyFetchr()
         val gson = Gson()
@@ -29,6 +37,9 @@ class CurrencyRepository {
         return tableB
     }
 
+    /**
+     * @see TableC
+     */
     fun getTableC(time: Long): Array<TableC> {
         val currencyFetcher = CurrencyFetchr()
         val gson = Gson()

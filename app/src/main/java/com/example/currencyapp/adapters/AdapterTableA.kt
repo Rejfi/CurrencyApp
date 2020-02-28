@@ -12,8 +12,9 @@ import com.example.currencyapp.data.models.tableA.RateA
 import com.example.currencyapp.data.models.tableA.TableA
 
 class AdapterTableA(private val currencies: Array<TableA>,
-                    val itemClickListener: OnItemClickListener
+                    private val itemClickListener: OnItemClickListener
 ): RecyclerView.Adapter<CurrencyTableAViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyTableAViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val row = layoutInflater.inflate(R.layout.table_a_row, parent, false)
@@ -29,18 +30,13 @@ class AdapterTableA(private val currencies: Array<TableA>,
         val rateA = currencies[0].rates[position]
         holderTableA.bind(rateA, itemClickListener)
     }
-
-
-    fun getCurrency(position: Int): RateA {
-        return currencies[0].rates[position]
-    }
 }
 
 class CurrencyTableAViewHolder(view: View): RecyclerView.ViewHolder(view){
 
-    val currencyName: TextView = view.findViewById(R.id.currencyName)
-    val currencyRates: TextView = view.findViewById(R.id.currencyRates)
-    val currencyByPLN: TextView = view.findViewById(R.id.currencyByPLN)
+    private val currencyName: TextView = view.findViewById(R.id.currencyName)
+    private val currencyRates: TextView = view.findViewById(R.id.currencyRates)
+    private val currencyByPLN: TextView = view.findViewById(R.id.currencyByPLN)
 
     fun bind(rate: RateA, clickListener: OnItemClickListener)
     {

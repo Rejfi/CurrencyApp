@@ -25,74 +25,11 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
 
-    private lateinit var currencyViewModel: CurrencyViewModel
-    private lateinit var viewPager: ViewPager2
-    private lateinit var tabLayout: TabLayout
-    private lateinit var navigationView: NavigationView
-    private lateinit var floatingActionButton: FloatingActionButton
-    private lateinit var coordinatorLayout: CoordinatorLayout
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val fm = supportFragmentManager
-
-        currencyViewModel = ViewModelProvider(this).get(CurrencyViewModel::class.java)
-
-        viewPager = findViewById(R.id.viewPager)
-        tabLayout = findViewById(R.id.tabLayout)
-        navigationView = findViewById(R.id.navigationView)
-        floatingActionButton = findViewById(R.id.floatingActionButton)
-        coordinatorLayout = findViewById(R.id.coordinatorLayout)
-
-        val viewPagerAdapter = CurrencyViewPagerAdapter(this)
-        viewPager.adapter = viewPagerAdapter
-
-        TabLayoutMediator(tabLayout
-            ,viewPager
-            ,TabLayoutMediator.TabConfigurationStrategy {
-                    tab, position ->
-                when(position){
-                    0 -> tab.text = "Tabela A"
-                    1 -> tab.text = "Tabela B"
-                    2 -> tab.text = "Tabela C"
-                }
-            }).attach()
-        floatingActionButton.setOnClickListener {
-            val dialog = CalendarFragment()
-            dialog.show(fm, "DatePickerDialog")
-        }
-    }
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        //Convert year,month,day to millisecounds
-        val c = Calendar.getInstance()
-        c.set(year,month,dayOfMonth)
-        val dayInMillis = c.time.time
-        val today = Calendar.getInstance()
-
-        if(checkIsDateAfterToday(today, c)){
-            currencyViewModel.setTableA(dayInMillis)
-            currencyViewModel.setTableB(dayInMillis)
-            currencyViewModel.setTableC(dayInMillis)
-            
-        }else{
-            showSnackbar(dayInMillis)
-        }
-    }
-
-    private fun showSnackbar(time: Long){
-        Snackbar.make(coordinatorLayout,
-            "Brak danych dla ${convertToDate(time)}",
-            Snackbar.LENGTH_LONG)
-            .show()
-    }
-
-    private fun checkIsDateAfterToday(todayDate: Calendar, nextDate: Calendar): Boolean {
-        return !todayDate.before(nextDate)
-    }
-
     companion object{
-         fun convertToDate(time: Long): String {
+        /**
+         * Function convert time (Long) into pattern DD-MM-YYYY
+         */
+        fun convertToDate(time: Long): String {
             val c = Calendar.getInstance()
             c.timeInMillis = time
             val year = c.get(Calendar.YEAR)
@@ -111,6 +48,98 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
 
             return "$dayString-$monthString-$year"
         }
+    }
+
+
+
+    private lateinit var currencyViewModel: CurrencyViewModel
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var coordinatorLayout: CoordinatorLayout
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val fm = supportFragmentManager
+
+        currencyViewModel = ViewModelProvider(this).get(CurrencyViewModel::class.java)
+
+        /**
+         * Finding views
+         */
+        viewPager = findViewById(R.id.viewPager)
+        tabLayout = findViewById(R.id.tabLayout)
+        navigationView = findViewById(R.id.navigationView)
+        floatingActionButton = findViewById(R.id.floatingActionButton)
+        coordinatorLayout = findViewById(R.id.coordinatorLayout)
+
+        val viewPagerAdapter = CurrencyViewPagerAdapter(this)
+        viewPager.adapter = viewPagerAdapter
+
+        /**
+         * Set up Viewpager and TabLayout together
+         */
+        TabLayoutMediator(tabLayout
+            ,viewPager
+            ,TabLayoutMediator.TabConfigurationStrategy {
+                    tab, position ->
+                when(position){
+                    0 -> tab.text = "Tabela A"
+                    1 -> tab.text = "Tabela B"
+                    2 -> tab.text = "Tabela C"
+                }
+            }).attach()
+
+        /**
+         * Set onClick on floatingButton and show DatePickerDialog
+         */
+        floatingActionButton.setOnClickListener {
+            val dialog = CalendarFragment()
+            dialog.show(fm, "DatePickerDialog")
+        }
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        /**
+         * Convert year,month,day to millisecounds
+         */
+
+        val c = Calendar.getInstance()
+        c.set(year,month,dayOfMonth)
+        val dayInMillis = c.time.time
+        val today = Calendar.getInstance()
+
+        /**
+         *  Check if choose data isn't after today
+         *  Yes -> load data for given time and set LiveData
+         *  No -> Inform user with snackBar
+         */
+        if(checkIsDateAfterToday(today, c)){
+            currencyViewModel.loadTableA(dayInMillis)
+            currencyViewModel.setTableA()
+
+            currencyViewModel.loadTableB(dayInMillis)
+            currencyViewModel.setTableB()
+
+            currencyViewModel.loadTableC(dayInMillis)
+            currencyViewModel.setTableC()
+
+        }else{
+            showSnackbar(dayInMillis)
+        }
+    }
+
+    private fun showSnackbar(time: Long){
+        Snackbar.make(coordinatorLayout,
+            "Brak danych dla ${convertToDate(time)}",
+            Snackbar.LENGTH_LONG)
+            .show()
+    }
+
+    private fun checkIsDateAfterToday(todayDate: Calendar, nextDate: Calendar): Boolean {
+        return !todayDate.before(nextDate)
     }
 
 }

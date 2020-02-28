@@ -19,6 +19,5 @@ class CalendarFragment: DialogFragment() {
             activity as DatePickerDialog.OnDateSetListener,
             year,
             month,
-            day)
-    }
+            day) }
 }

@@ -11,6 +11,10 @@ import java.util.*
 import javax.net.ssl.HttpsURLConnection
 
 class CurrencyFetchr {
+    /**
+     * Function retrieves bytes from given address
+     * @param urlSpec https address
+     */
 
     private fun getUrlBytes(urlSpec: String): ByteArray {
         val url = URL(urlSpec)
@@ -46,9 +50,19 @@ class CurrencyFetchr {
         }
     }
 
+    /**
+     * Change byteArray into String
+     * @param urlSpec https address
+     */
+
     private fun getUrlString(urlSpec: String): String {
         return String(getUrlBytes(urlSpec))
     }
+    /**
+     * Make HTTPS request for data
+     * @param time date in milliseconds
+     * @param table special const value which type of table from NBP API you would like to
+     */
 
     fun getJSONString(time: Long, table: Char): String {
 
@@ -74,6 +88,9 @@ class CurrencyFetchr {
     }
 }
 
+/**
+ * Convert time (Long) to pattern YYYY-MM-DD for API request
+ */
 private fun convertToCorrectDate(time: Long): String{
 
     val c = Calendar.getInstance()

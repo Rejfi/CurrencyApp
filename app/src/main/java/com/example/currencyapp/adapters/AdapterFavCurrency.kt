@@ -28,20 +28,13 @@ class AdapterFavCurrency(private val currencies: List<RateA>,
             holderTableA.bind(rateA, longClickListener)
         }
     }
-
-
-    fun refreshDataSet(){
-        notifyDataSetChanged()
-    }
-
-
 }
 
 class CurrencyFavouriteViewHolder(view: View): RecyclerView.ViewHolder(view){
 
-    val currencyName: TextView = view.findViewById(R.id.currencyName)
-    val currencyRates: TextView = view.findViewById(R.id.currencyRates)
-    val currencyByPLN: TextView = view.findViewById(R.id.currencyByPLN)
+    private val currencyName: TextView = view.findViewById(R.id.currencyName)
+    private val currencyRates: TextView = view.findViewById(R.id.currencyRates)
+    private val currencyByPLN: TextView = view.findViewById(R.id.currencyByPLN)
 
     fun bind(rate: RateA, longClickListener: OnLongItemClickListener)
     {
