@@ -21,9 +21,14 @@ class CurrencyViewModel : ViewModel() {
     private lateinit var jobC: Job
     private lateinit var jobFav: Job
 
+    private var loadedDataTableA: Array<TableA> = emptyArray()
+    private var loadedDataTableB: Array<TableB> = emptyArray()
+    private var loadedDataTableC: Array<TableC> = emptyArray()
+
     val tableA = MutableLiveData<Array<TableA>>().apply {
         loadTableA(c.timeInMillis)
     }
+
     val tableB = MutableLiveData<Array<TableB>>().apply {
         loadTableB(c.timeInMillis)
     }
@@ -38,16 +43,21 @@ class CurrencyViewModel : ViewModel() {
     /**
      * Load async data from repository and post value if isn't null or empty
      */
+    private suspend fun loadTableAAsync(time: Long): Deferred<Array<TableA>>{
+       return CoroutineScope(Dispatchers.IO).async {
+            repository.getTableA(time)
+        }
+    }
     private fun loadTableA(time: Long) {
        jobA = CoroutineScope(viewModelScope.coroutineContext).launch {
             val loadedData =
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                     repository.getTableA(time)
                 }
-            Log.e("Tag", "Załadowanie danych i wysłanie zapytania na serwer")
             if(!loadedData.isNullOrEmpty())
                 tableA.postValue(loadedData)
         }
+
     }
 
     private fun loadTableB(time: Long) {
@@ -68,9 +78,11 @@ class CurrencyViewModel : ViewModel() {
                 withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                     repository.getTableC(time)
                 }
-            if(!loadedData.isNullOrEmpty())
+
+             if(!loadedData.isNullOrEmpty())
                 tableC.postValue(loadedData)
         }
+
     }
 
     private fun loadTableFav() {
@@ -86,7 +98,7 @@ class CurrencyViewModel : ViewModel() {
     }
 
     fun setTableA(time: Long){
-       loadTableA(time)
+        loadTableA(time)
     }
     fun setTableB(time: Long){
         loadTableB(time)
